@@ -1,5 +1,5 @@
 import './App.css';
-import InputFormats from './components/InputFormats/InputFormats';
+import InputFormats from './components/InputFormats';
 
 function App() {
   return (
