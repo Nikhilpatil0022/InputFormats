@@ -45,6 +45,7 @@ class InputFormats extends Component {
         this.state = {
             currencyValueUSD:'',
             currencyValueRS:'',
+            currencyValueEUR:'',
             date1: '',
             date2:'',
             time1:''
@@ -69,6 +70,9 @@ class InputFormats extends Component {
                             <CurrencyFormat currencyType = 'INR'
                                 currencyValue = {this.state.currencyValueRS}
                                 handleCurrency = {(currency)=>this.setState({currencyValueRS:currency})}></CurrencyFormat>
+                            <CurrencyFormat currencyType = 'EUR'
+                                currencyValue = {this.state.currencyValueEUR}
+                                handleCurrency = {(currency)=>this.setState({currencyValueEUR:currency})}></CurrencyFormat>
                         </div>  
                         <div>
                             <h2>Date Formats</h2>
