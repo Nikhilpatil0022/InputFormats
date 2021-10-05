@@ -1,10 +1,10 @@
 import './App.css';
-import InputFormats from './components/InputFormats';
+import View from './components/View';
 
 function App() {
   return (
     <div >
-      <InputFormats></InputFormats>
+      <View/>
     </div>
   );
 }
