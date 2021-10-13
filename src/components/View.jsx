@@ -66,7 +66,7 @@ class View extends Component {
                                 currencyType = 'USD' handleCurrency = {(currency)=>this.setState({currencyValueUSD:currency})} ></InputNumber>
                             <InputNumber mode='currency' currencyValue = {this.state.currencyValueINR} 
                                 currencyType = 'INR' handleCurrency = {(currency)=>this.setState({currencyValueINR:currency})} ></InputNumber>
-                            <InputNumber mode='currency' currencyValue = {this.state.currencyValueEUR} 
+                            <InputNumber mode='currency' currencyValue = {this.state.currencyValueEUR}
                                 currencyType = 'EUR' handleCurrency = {(currency)=>this.setState({currencyValueEUR:currency})} ></InputNumber>
                         </div>  
                         <div>
@@ -79,7 +79,7 @@ class View extends Component {
                         <div>
                             <h2>Time Format: (hh:mm:ss)</h2>
                             <InputNumber mode='time' timeValue = {this.state.time1}
-                                handleTime = {(time)=>this.setState({time1:time})}></InputNumber>
+                                handleTime = {(time)=>this.setState({time1:time})} format='hh:mm'></InputNumber>
                         </div>
                         
                         <Button onClick={this.clickEvent}>Print on console</Button>

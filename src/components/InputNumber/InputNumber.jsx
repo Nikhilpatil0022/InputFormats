@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import PropTypes from "prop-types";
 
 
 const Input = styled.input`
@@ -9,7 +10,6 @@ const Input = styled.input`
     display: inline-block;
     border: none;
     background: #f1f1f1;
-
     &:focus{
         background-color: #ddd;
         outline: none;
@@ -21,14 +21,14 @@ const CurrencySymbol = styled.span`
     margin-right: 20px;
 `;
 
-export class InputNumber extends Component {
+class InputNumber extends Component {
     constructor(props) {
         super(props)
     
         this.state = {
             placeholder_currency: (this.props.currencyType==='INR' || this.props.currencyType==='USD')?(this.props.currencyType==='INR'?'₹':'$'):'€',
             placeholder_date : this.props.format==='MM/YY'?'MM/YY':'YYYY/MM/DD',
-            placeholder_time: 'hh:mm:ss'
+            placeholder_time: this.props.format==='hh:mm:ss'?'hh:mm:ss':'hh:mm'
         }
     }
 //CurrencyFormat
@@ -311,13 +311,14 @@ export class InputNumber extends Component {
                 }
                 if(parseInt(ss)>59){
                     ss = '59'
-                }
+                }     
                 finalTime = hh + delimeter + mm + delimeter + ss
-
+                if(this.props.format==='hh:mm'){
+                    finalTime = hh + delimeter + mm
+                }  
             }  
             //call to the function of parent component which is sent as a prop to overwrite the state of parent component
             this.props.handleTime(finalTime)
-
         }
 
     }
@@ -330,17 +331,17 @@ export class InputNumber extends Component {
             case 'currency': 
                 handlerFunction = this.currencyValueHandler;
                 valueHandler = this.props.currencyValue;
-                placehold = this.state.placeholder_currency;
+                placehold = this.props.placeholder?this.props.placeholder:this.state.placeholder_currency;
                 break;
             case 'date':  
                 handlerFunction = this.dateHandler;
                 valueHandler = this.props.dateValue;
-                placehold = this.state.placeholder_date;
+                placehold = this.props.placeholder?this.props.placeholder:this.state.placeholder_date;
                 break;
             case 'time': 
                 handlerFunction = this.timeHandler;
                 valueHandler = this.props.timeValue;
-                placehold = this.state.placeholder_time;
+                placehold = this.props.placeholder?this.props.placeholder:this.state.placeholder_time;
                 break;
             default: 
                 handlerFunction = null;
@@ -360,5 +361,22 @@ export class InputNumber extends Component {
         )
     }
 }
+
+InputNumber.propTypes = {
+    mode: PropTypes.string,
+    currencyValue: PropTypes.string,
+    currencyType: PropTypes.string,
+    placeholder: PropTypes.string,
+    format: PropTypes.string,
+    delimeter: PropTypes.string
+};
+Input.defaultProps = {
+    mode: "",
+    currencyValue: "",
+    currencyType: "",
+    placeholder: "",
+    format: "",
+    delimeter: ""
+};
 
 export default InputNumber
