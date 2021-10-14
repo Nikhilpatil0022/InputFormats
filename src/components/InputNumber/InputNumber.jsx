@@ -113,18 +113,12 @@ class InputNumber extends Component {
                     if(flag){
                         val1 += '.'
                     }
-                    this.setState({
-                        placeholder_currency:' $'
-                    })
                 }
                 if (this.props.currencyType === 'INR' && val1.length){
                     val1 = this.hundredSeparator(val1)
                     if(flag){
                         val1+='.'
                     }
-                    this.setState({
-                        placeholder_currency: ' ₹'
-                    })
                 }
                 if(val1.length){
                     val = val1
@@ -134,7 +128,7 @@ class InputNumber extends Component {
                     val += val2
                 }
                 //call to the function of parent component which is sent as a prop to overwrite the state of parent component
-                this.props.handleCurrency(val)    
+                this.props.onValueChange(val)    
             }
         }
         if (this.props.currencyType === 'EUR'){
@@ -166,7 +160,7 @@ class InputNumber extends Component {
                     val += val2
                 }
                 //call to the function of parent component which is sent as a prop to overwrite the state of parent component
-                this.props.handleCurrency(val)    
+                this.props.onValueChange(val)    
             }
 
         }
@@ -201,7 +195,7 @@ class InputNumber extends Component {
                     finalDate = mm + delimeter + yy
                 }
                 //call to the function of parent component which is sent as a prop to overwrite the state of parent component
-                this.props.handleDate(finalDate)
+                this.props.onValueChange(finalDate)
             } 
         }
         else{       //for YYYY/MM/DD
@@ -252,7 +246,7 @@ class InputNumber extends Component {
                     finalDate = yyyy + delimeter + mm + delimeter + dd
                 }
                 //call to the function of parent component which is sent as a prop to overwrite the state of parent component
-                this.props.handleDate(finalDate)
+                this.props.onValueChange(finalDate)
             }
         }
     }
@@ -318,42 +312,37 @@ class InputNumber extends Component {
                 }  
             }  
             //call to the function of parent component which is sent as a prop to overwrite the state of parent component
-            this.props.handleTime(finalTime)
+            this.props.onValueChange(finalTime)
         }
 
     }
 
     render() {
         var handlerFunction = null;
-        var valueHandler = null;
-        var placehold = null;
+        var placeholder = null;
         switch(this.props.mode){
             case 'currency': 
                 handlerFunction = this.currencyValueHandler;
-                valueHandler = this.props.currencyValue;
-                placehold = this.props.placeholder?this.props.placeholder:this.state.placeholder_currency;
+                placeholder = this.props.placeholder?this.props.placeholder:this.state.placeholder_currency;
                 break;
             case 'date':  
                 handlerFunction = this.dateHandler;
-                valueHandler = this.props.dateValue;
-                placehold = this.props.placeholder?this.props.placeholder:this.state.placeholder_date;
+                placeholder = this.props.placeholder?this.props.placeholder:this.state.placeholder_date;
                 break;
             case 'time': 
                 handlerFunction = this.timeHandler;
-                valueHandler = this.props.timeValue;
-                placehold = this.props.placeholder?this.props.placeholder:this.state.placeholder_time;
+                placeholder = this.props.placeholder?this.props.placeholder:this.state.placeholder_time;
                 break;
             default: 
                 handlerFunction = null;
-                valueHandler = null;
                 break;
         }
         return (
             <div>
-                <Input type= 'text' value = {valueHandler} 
-                    onChange = {handlerFunction} placeholder={placehold}></Input>
+                <Input type= 'text' value = {this.props.value} 
+                    onChange = {handlerFunction} placeholder={placeholder}></Input>
                     {   
-                        this.props.currencyValue && this.props.mode === 'currency'  ?
+                        this.props.value && this.props.mode === 'currency'  ?
                         <CurrencySymbol>{this.state.placeholder_currency}</CurrencySymbol>:
                         null
                     }    
@@ -364,19 +353,16 @@ class InputNumber extends Component {
 
 InputNumber.propTypes = {
     mode: PropTypes.string,  // valid values: currency, date, time
-    currencyValue: PropTypes.string, // value to bind with state (it is like 'value' prop and is used when mode=currency)
-    dateValue: PropTypes.string, // for date input
-    timeValue: PropTypes.string, // for time input
+    value: PropTypes.string,
     currencyType: PropTypes.string, // valid values: USD, INR, EUR 
     placeholder: PropTypes.string, 
-    format: PropTypes.string, // use when mode=time(hh:mm:ss OR hh:mm) or mode= date(YYYY/MM/dd OR MM/YY)
-    delimeter: PropTypes.string // use when mode=time or mode=date
+    format: PropTypes.string, // use when mode = time(hh:mm:ss OR hh:mm) OR mode = date(YYYY/MM/dd OR MM/YY)
+    delimeter: PropTypes.string, // use when mode = time OR mode = date
+    onValueChange: PropTypes.func
 };
 Input.defaultProps = {
     mode: "",
-    currencyValue: "",
-    dateValue: "",
-    timeValue: "",
+    value: "",
     currencyType: "",
     placeholder: "",
     format: "",

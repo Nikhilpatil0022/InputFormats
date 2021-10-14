@@ -42,11 +42,12 @@ class View extends Component {
     
         this.state = {
             currencyValueUSD:'',
-            currencyValueRS:'',
+            currencyValueINR:'',
             currencyValueEUR:'',
             date1: '',
             date2:'',
-            time1:''
+            time1:'',
+            time2:''
         }
     }
     
@@ -62,24 +63,26 @@ class View extends Component {
                     <Container>
                         <div>
                             <h2>Currancy Formats</h2>
-                            <InputNumber mode='currency' currencyValue = {this.state.currencyValueUSD} 
-                                currencyType = 'USD' handleCurrency = {(currency)=>this.setState({currencyValueUSD:currency})} ></InputNumber>
-                            <InputNumber mode='currency' currencyValue = {this.state.currencyValueINR} 
-                                currencyType = 'INR' handleCurrency = {(currency)=>this.setState({currencyValueINR:currency})} ></InputNumber>
-                            <InputNumber mode='currency' currencyValue = {this.state.currencyValueEUR}
-                                currencyType = 'EUR' handleCurrency = {(currency)=>this.setState({currencyValueEUR:currency})} ></InputNumber>
+                            <InputNumber mode='currency' value = {this.state.currencyValueUSD}
+                                currencyType = 'USD' onValueChange = {val=>this.setState({currencyValueUSD:val})} ></InputNumber>
+                            <InputNumber mode='currency' value = {this.state.currencyValueINR} 
+                                currencyType = 'INR' onValueChange = {val=>this.setState({currencyValueINR:val})} ></InputNumber>
+                            <InputNumber mode='currency' value = {this.state.currencyValueEUR}
+                                currencyType = 'EUR' onValueChange = {val=>this.setState({currencyValueEUR:val})} ></InputNumber>
                         </div>  
                         <div>
                             <h2>Date Formats</h2>
-                            <InputNumber mode='date' format = 'MM/YY' dateValue = {this.state.date1}
-                               handleDate = {(date)=>this.setState({date1:date})} ></InputNumber>
-                            <InputNumber mode='date' dateValue = {this.state.date2}
-                               handleDate = {(date)=>this.setState({date2:date})} ></InputNumber>
+                            <InputNumber mode='date' format = 'MM/YY' value = {this.state.date1}
+                               onValueChange = {val =>this.setState({date1:val})} ></InputNumber>
+                            <InputNumber mode='date' value = {this.state.date2}
+                               onValueChange = {val =>this.setState({date2:val})} ></InputNumber>
                         </div>
                         <div>
                             <h2>Time Format: (hh:mm:ss)</h2>
-                            <InputNumber mode='time' timeValue = {this.state.time1}
-                                handleTime = {(time)=>this.setState({time1:time})} format='hh:mm'></InputNumber>
+                            <InputNumber mode='time' value = {this.state.time1}
+                                onValueChange = {val =>this.setState({time1:val})} format='hh:mm'></InputNumber>
+                            <InputNumber mode='time' value = {this.state.time2}
+                                onValueChange = {val =>this.setState({time2:val})} format='hh:mm:ss'></InputNumber>
                         </div>
                         
                         <Button onClick={this.clickEvent}>Print on console</Button>
