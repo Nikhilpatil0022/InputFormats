@@ -363,16 +363,20 @@ class InputNumber extends Component {
 }
 
 InputNumber.propTypes = {
-    mode: PropTypes.string,
-    currencyValue: PropTypes.string,
-    currencyType: PropTypes.string,
-    placeholder: PropTypes.string,
-    format: PropTypes.string,
-    delimeter: PropTypes.string
+    mode: PropTypes.string,  // valid values: currency, date, time
+    currencyValue: PropTypes.string, // value to bind with state (it is like 'value' prop and is used when mode=currency)
+    dateValue: PropTypes.string, // for date input
+    timeValue: PropTypes.string, // for time input
+    currencyType: PropTypes.string, // valid values: USD, INR, EUR 
+    placeholder: PropTypes.string, 
+    format: PropTypes.string, // use when mode=time(hh:mm:ss OR hh:mm) or mode= date(YYYY/MM/dd OR MM/YY)
+    delimeter: PropTypes.string // use when mode=time or mode=date
 };
 Input.defaultProps = {
     mode: "",
     currencyValue: "",
+    dateValue: "",
+    timeValue: "",
     currencyType: "",
     placeholder: "",
     format: "",
